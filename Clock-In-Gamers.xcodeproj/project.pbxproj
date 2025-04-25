@@ -1,0 +1,655 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D363E8572DBB13FA006CBFC1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D363E8562DBB13FA006CBFC1 /* FirebaseAnalytics */; };
+		D363E8592DBB13FA006CBFC1 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = D363E8582DBB13FA006CBFC1 /* FirebaseAnalyticsOnDeviceConversion */; };
+		D363E85B2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D363E85A2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		D363E85D2DBB13FA006CBFC1 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D363E85C2DBB13FA006CBFC1 /* FirebaseAppCheck */; };
+		D363E85F2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D363E85E2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D0E753BD2D5C68F100E9605B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0E753A32D5C68EF00E9605B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0E753AA2D5C68EF00E9605B;
+			remoteInfo = "Clock-In-Gamers";
+		};
+		D0E753C72D5C68F100E9605B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0E753A32D5C68EF00E9605B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0E753AA2D5C68EF00E9605B;
+			remoteInfo = "Clock-In-Gamers";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D0E753AB2D5C68EF00E9605B /* Clock-In-Gamers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clock-In-Gamers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0E753BC2D5C68F100E9605B /* Clock-In-GamersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Clock-In-GamersTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0E753C62D5C68F100E9605B /* Clock-In-GamersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Clock-In-GamersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		D0E753AD2D5C68EF00E9605B /* Clock-In-Gamers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Clock-In-Gamers";
+			sourceTree = "<group>";
+		};
+		D0E753BF2D5C68F100E9605B /* Clock-In-GamersTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Clock-In-GamersTests";
+			sourceTree = "<group>";
+		};
+		D0E753C92D5C68F100E9605B /* Clock-In-GamersUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Clock-In-GamersUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D0E753A82D5C68EF00E9605B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D363E85D2DBB13FA006CBFC1 /* FirebaseAppCheck in Frameworks */,
+				D363E8572DBB13FA006CBFC1 /* FirebaseAnalytics in Frameworks */,
+				D363E85F2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta in Frameworks */,
+				D363E85B2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				D363E8592DBB13FA006CBFC1 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E753B92D5C68F100E9605B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E753C32D5C68F100E9605B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D0E753A22D5C68EF00E9605B = {
+			isa = PBXGroup;
+			children = (
+				D0E753AD2D5C68EF00E9605B /* Clock-In-Gamers */,
+				D0E753BF2D5C68F100E9605B /* Clock-In-GamersTests */,
+				D0E753C92D5C68F100E9605B /* Clock-In-GamersUITests */,
+				D0E753AC2D5C68EF00E9605B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D0E753AC2D5C68EF00E9605B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0E753AB2D5C68EF00E9605B /* Clock-In-Gamers.app */,
+				D0E753BC2D5C68F100E9605B /* Clock-In-GamersTests.xctest */,
+				D0E753C62D5C68F100E9605B /* Clock-In-GamersUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D0E753AA2D5C68EF00E9605B /* Clock-In-Gamers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0E753D02D5C68F100E9605B /* Build configuration list for PBXNativeTarget "Clock-In-Gamers" */;
+			buildPhases = (
+				D0E753A72D5C68EF00E9605B /* Sources */,
+				D0E753A82D5C68EF00E9605B /* Frameworks */,
+				D0E753A92D5C68EF00E9605B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				D0E753AD2D5C68EF00E9605B /* Clock-In-Gamers */,
+			);
+			name = "Clock-In-Gamers";
+			packageProductDependencies = (
+				D363E8562DBB13FA006CBFC1 /* FirebaseAnalytics */,
+				D363E8582DBB13FA006CBFC1 /* FirebaseAnalyticsOnDeviceConversion */,
+				D363E85A2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				D363E85C2DBB13FA006CBFC1 /* FirebaseAppCheck */,
+				D363E85E2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta */,
+			);
+			productName = "Clock-In-Gamers";
+			productReference = D0E753AB2D5C68EF00E9605B /* Clock-In-Gamers.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D0E753BB2D5C68F100E9605B /* Clock-In-GamersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0E753D32D5C68F100E9605B /* Build configuration list for PBXNativeTarget "Clock-In-GamersTests" */;
+			buildPhases = (
+				D0E753B82D5C68F100E9605B /* Sources */,
+				D0E753B92D5C68F100E9605B /* Frameworks */,
+				D0E753BA2D5C68F100E9605B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0E753BE2D5C68F100E9605B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D0E753BF2D5C68F100E9605B /* Clock-In-GamersTests */,
+			);
+			name = "Clock-In-GamersTests";
+			packageProductDependencies = (
+			);
+			productName = "Clock-In-GamersTests";
+			productReference = D0E753BC2D5C68F100E9605B /* Clock-In-GamersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D0E753C52D5C68F100E9605B /* Clock-In-GamersUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0E753D62D5C68F100E9605B /* Build configuration list for PBXNativeTarget "Clock-In-GamersUITests" */;
+			buildPhases = (
+				D0E753C22D5C68F100E9605B /* Sources */,
+				D0E753C32D5C68F100E9605B /* Frameworks */,
+				D0E753C42D5C68F100E9605B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0E753C82D5C68F100E9605B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				D0E753C92D5C68F100E9605B /* Clock-In-GamersUITests */,
+			);
+			name = "Clock-In-GamersUITests";
+			packageProductDependencies = (
+			);
+			productName = "Clock-In-GamersUITests";
+			productReference = D0E753C62D5C68F100E9605B /* Clock-In-GamersUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D0E753A32D5C68EF00E9605B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					D0E753AA2D5C68EF00E9605B = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					D0E753BB2D5C68F100E9605B = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = D0E753AA2D5C68EF00E9605B;
+					};
+					D0E753C52D5C68F100E9605B = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = D0E753AA2D5C68EF00E9605B;
+					};
+				};
+			};
+			buildConfigurationList = D0E753A62D5C68EF00E9605B /* Build configuration list for PBXProject "Clock-In-Gamers" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D0E753A22D5C68EF00E9605B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D0E753AC2D5C68EF00E9605B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D0E753AA2D5C68EF00E9605B /* Clock-In-Gamers */,
+				D0E753BB2D5C68F100E9605B /* Clock-In-GamersTests */,
+				D0E753C52D5C68F100E9605B /* Clock-In-GamersUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0E753A92D5C68EF00E9605B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E753BA2D5C68F100E9605B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E753C42D5C68F100E9605B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D0E753A72D5C68EF00E9605B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E753B82D5C68F100E9605B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0E753C22D5C68F100E9605B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0E753BE2D5C68F100E9605B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0E753AA2D5C68EF00E9605B /* Clock-In-Gamers */;
+			targetProxy = D0E753BD2D5C68F100E9605B /* PBXContainerItemProxy */;
+		};
+		D0E753C82D5C68F100E9605B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0E753AA2D5C68EF00E9605B /* Clock-In-Gamers */;
+			targetProxy = D0E753C72D5C68F100E9605B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D0E753CE2D5C68F100E9605B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D0E753CF2D5C68F100E9605B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		D0E753D12D5C68F100E9605B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Clock-In-Gamers/Clock_In_Gamers.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Clock-In-Gamers/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Clock In Gamers!";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "celegarl.Clock-In-Gamers";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		D0E753D22D5C68F100E9605B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Clock-In-Gamers/Clock_In_Gamers.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Clock-In-Gamers/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Clock In Gamers!";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "celegarl.Clock-In-Gamers";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		D0E753D42D5C68F100E9605B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "celegarl.Clock-In-GamersTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clock-In-Gamers.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clock-In-Gamers";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		D0E753D52D5C68F100E9605B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "celegarl.Clock-In-GamersTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clock-In-Gamers.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clock-In-Gamers";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		D0E753D72D5C68F100E9605B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "celegarl.Clock-In-GamersUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "Clock-In-Gamers";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		D0E753D82D5C68F100E9605B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "celegarl.Clock-In-GamersUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = "Clock-In-Gamers";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0E753A62D5C68EF00E9605B /* Build configuration list for PBXProject "Clock-In-Gamers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E753CE2D5C68F100E9605B /* Debug */,
+				D0E753CF2D5C68F100E9605B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0E753D02D5C68F100E9605B /* Build configuration list for PBXNativeTarget "Clock-In-Gamers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E753D12D5C68F100E9605B /* Debug */,
+				D0E753D22D5C68F100E9605B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0E753D32D5C68F100E9605B /* Build configuration list for PBXNativeTarget "Clock-In-GamersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E753D42D5C68F100E9605B /* Debug */,
+				D0E753D52D5C68F100E9605B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0E753D62D5C68F100E9605B /* Build configuration list for PBXNativeTarget "Clock-In-GamersUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E753D72D5C68F100E9605B /* Debug */,
+				D0E753D82D5C68F100E9605B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.12.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D363E8562DBB13FA006CBFC1 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		D363E8582DBB13FA006CBFC1 /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		D363E85A2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		D363E85C2DBB13FA006CBFC1 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		D363E85E2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D363E8552DBB13FA006CBFC1 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAppDistribution-Beta";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D0E753A32D5C68EF00E9605B /* Project object */;
+}
