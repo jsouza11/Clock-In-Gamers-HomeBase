@@ -12,36 +12,49 @@ struct NotificationCenterView: View {
 
     var body: some View {
         NavigationStack {
-            VStack {
-                if storage.upcomingEvents.isEmpty {
-                    Text("No upcoming reminders.")
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    List {
-                        ForEach(storage.upcomingEvents) { event in
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(event.title)
-                                    .font(.headline)
-                                Text(event.date, style: .date)
-                                    .font(.subheadline)
-                                Text(event.date, style: .time)
-                                    .font(.subheadline)
+            ZStack {
+                Color.black.ignoresSafeArea() // Full background
+                
+                VStack {
+                    if storage.upcomingEvents.isEmpty {
+                        Text("No upcoming reminders.")
+                            .foregroundColor(.white)
+                            .padding()
+                    } else {
+                        List {
+                            ForEach(storage.upcomingEvents) { event in
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(event.title)
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    Text(event.date, style: .date)
+                                        .font(.subheadline)
+                                        .foregroundColor(.white)
+                                    Text(event.date, style: .time)
+                                        .font(.subheadline)
+                                        .foregroundColor(.white)
+                                }
+                                .padding(.vertical, 5)
                             }
-                            .padding(.vertical, 5)
+                            .onDelete(perform: deleteEvent)
                         }
-                        .onDelete(perform: deleteEvent)
+                        .listStyle(.insetGrouped)
+                        .scrollContentBackground(.hidden)
+                        .background(Color.black)
                     }
-                    .listStyle(.insetGrouped)
                 }
             }
             .navigationTitle("Notifications")
+            .toolbarColorScheme(.dark, for: .navigationBar) // Make title/buttons white
+            .toolbarBackground(Color.black, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !storage.upcomingEvents.isEmpty {
                         Button("Clear All") {
                             clearAllEvents()
                         }
+                        .foregroundColor(.white)
                     }
                 }
             }
