@@ -8,45 +8,37 @@
 import SwiftUI
 
 struct Home: View {
-    // Methods for clock-in and clock-out actions
     @State var isClockedIn: Bool = false
+    @State private var showNotifications = false
     @EnvironmentObject var appData: AppData
-    
+
     private func clockIn() {
         isClockedIn = true
-        // No need to update user statuses
     }
 
     private func clockOut() {
         isClockedIn = false
-        // No need to update user statuses
     }
 
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
                 VStack {
-                    // Top Greeting Message
                     VStack(alignment: .leading, spacing: 10) {
                         Text(isClockedIn ? "Good day gamer, time to clock in" : "Good day gamer, time to clock out")
                             .font(.title)
                             .fontWeight(.bold)
                             .padding(.top, 20)
-                        
-                        if isClockedIn {
-                            Text("Let's see your stats for today.")
-                                .font(.subheadline)
-                        } else {
-                            Text("Ready to start another gaming session?")
-                                .font(.subheadline)
-                        }
+                            .foregroundColor(.white)
+
+                        Text(isClockedIn ? "Let's see your stats for today." : "Ready to start another gaming session?")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
                     }
                     .padding(.horizontal)
-                    
-                    // Top Widget
+
                     TopWidgetView(isClockedIn: $isClockedIn, clockIn: clockIn, clockOut: clockOut)
-                    
-                    // User List Header
+
                     HStack {
                         VStack {
                             Text("Friend List")
@@ -58,12 +50,10 @@ struct Home: View {
                     }
                     .padding()
 
-                    // Divider between two stacks
                     Divider()
                         .background(Color.white)
                         .padding(.horizontal)
 
-                    // Scrollable User List
                     ScrollView {
                         VStack(spacing: 20) {
                             ForEach(appData.allUsers) { user in
@@ -80,7 +70,6 @@ struct Home: View {
                 }
                 .background(Color.black.edgesIgnoringSafeArea(.all))
                 .onAppear {
-                    // Ensuring the first user is always clocked in at the start
                     if let firstUser = appData.allUsers.first {
                         if firstUser.name == "Frank" {
                             firstUser.isClockedIn = true
@@ -90,6 +79,29 @@ struct Home: View {
                         }
                     }
                 }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showNotifications = true
+                        }) {
+                            ZStack(alignment: .topTrailing) {
+                                Image(systemName: "bell")
+                                    .foregroundColor(.white)
+                                    .font(.title2)
+
+                                if !NotificationCenterStorage.shared.upcomingEvents.isEmpty {
+                                    Circle()
+                                        .fill(Color.red)
+                                        .frame(width: 10, height: 10)
+                                        .offset(x: 8, y: -8)
+                                }
+                            }
+                        }
+                    }
+                }
+                .sheet(isPresented: $showNotifications) {
+                    NotificationCenterView()
+                }
             }
             .modifier(MainBackground())
         }
@@ -98,4 +110,6 @@ struct Home: View {
 
 #Preview {
     Home()
+        .environmentObject(AppData())
 }
+

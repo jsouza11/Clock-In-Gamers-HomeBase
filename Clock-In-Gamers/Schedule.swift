@@ -112,13 +112,13 @@ struct Schedule: View {
                             VStack(alignment: .leading) {
                                 Text(event.title)
                                     .font(.headline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                                 Text(event.date, style: .date)
                                     .font(.subheadline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                                 Text(event.date, style: .time)
                                     .font(.subheadline)
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.black)
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
