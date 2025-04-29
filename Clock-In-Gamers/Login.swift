@@ -71,6 +71,11 @@ struct Login: View {
         GeometryReader { geometry in
             NavigationStack {
                 VStack {
+                    Text("Clock-In-Gamers")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding()
+                    
                     VStack {
                         Text("Register")
                             .font(.largeTitle)
