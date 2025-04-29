@@ -5,6 +5,7 @@
 //  Created by Jake Souza on 4/24/25.
 //
 
+//<<<<<<< HEAD
 import SwiftUI
 
 func isValidUser() -> Bool {
@@ -173,3 +174,6 @@ struct Login: View {
 #Preview {
     Login(isUserAuthed: false)
 }
+//=======
+
+//>>>>>>> main
