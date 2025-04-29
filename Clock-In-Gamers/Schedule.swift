@@ -21,6 +21,9 @@ struct Schedule: View {
     @State private var showingEventEditor = false
     @State private var newEventTitle = ""
     @State private var scheduledEvents: [Event] = []
+    
+    @State private var showSuccessAlert = false
+    @State private var showPermissionDeniedAlert = false
 
     private let calendar = Calendar.current
     private let eventStore = EKEventStore()
@@ -103,7 +106,7 @@ struct Schedule: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
 
-                // 🕒 Time Picker
+                // Time Picker
                 DatePicker("Select Time", selection: $selectedTime, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.wheel)
                     .labelsHidden()
@@ -124,19 +127,13 @@ struct Schedule: View {
                         requestCalendarAccess { granted in
                             if granted {
                                 addEvent(title: newEventTitle, date: date)
+                                showSuccessAlert = true
+                            } else {
+                                showPermissionDeniedAlert = true
                             }
+                            showingEventEditor = false
                         }
                     }
-                    showingEventEditor = false
-                }
-                .padding()
-
-                Button("Export as .ICS File") {
-                    if var date = selectedDate {
-                        date = combineDateAndTime(date: date, time: selectedTime)
-                        exportICS(title: newEventTitle, date: date)
-                    }
-                    showingEventEditor = false
                 }
                 .padding()
 
@@ -146,6 +143,16 @@ struct Schedule: View {
                 .padding()
             }
             .padding()
+        }
+        .alert("Event Added!", isPresented: $showSuccessAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Your event was successfully added to your Calendar!")
+        }
+        .alert("Calendar Access Denied", isPresented: $showPermissionDeniedAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Please enable Calendar access in Settings to add events.")
         }
     }
 
@@ -182,50 +189,10 @@ struct Schedule: View {
 
         do {
             try eventStore.save(event, span: .thisEvent)
-            print("Event added to calendar!")
+            print("Event was added to calendar!")
         } catch {
             print("Failed to save event: \(error.localizedDescription)")
         }
-    }
-
-    func exportICS(title: String, date: Date) {
-        let eventString = """
-        BEGIN:VCALENDAR
-        VERSION:2.0
-        BEGIN:VEVENT
-        DTSTART:\(icsDateString(from: date))
-        DTEND:\(icsDateString(from: date.addingTimeInterval(3600)))
-        SUMMARY:\(title.isEmpty ? "Scheduled Event" : title)
-        DESCRIPTION:Scheduled via the app
-        END:VEVENT
-        END:VCALENDAR
-        """
-
-        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("event.ics")
-
-        do {
-            try eventString.write(to: tempURL, atomically: true, encoding: .utf8)
-            share(url: tempURL)
-        } catch {
-            print("Failed to write .ics file: \(error)")
-        }
-    }
-
-    func icsDateString(from date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMdd'T'HHmmss'Z'"
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        return formatter.string(from: date)
-    }
-
-    func share(url: URL) {
-#if canImport(UIKit)
-        let activityVC = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let rootVC = windowScene.windows.first?.rootViewController {
-            rootVC.present(activityVC, animated: true, completion: nil)
-        }
-#endif
     }
 }
 
