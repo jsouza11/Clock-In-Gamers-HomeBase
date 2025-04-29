@@ -5,6 +5,13 @@
 //  Created by Jake Souza on 4/24/25.
 //
 
+//
+//  Schedule.swift
+//  Clock-In-Gamers
+//
+//  Created by Jake Souza on 4/24/25.
+//
+
 import SwiftUI
 import EventKit
 
@@ -21,11 +28,11 @@ struct Schedule: View {
     @State private var showingEventEditor = false
     @State private var newEventTitle = ""
     @State private var scheduledEvents: [Event] = []
-    
+
     // New for alerts
     @State private var showSuccessAlert = false
     @State private var showSettingsAlert = false
-    
+
     // New for editing
     @State private var editingEvent: Event?
     @State private var editingTitle: String = ""
@@ -35,14 +42,24 @@ struct Schedule: View {
     private let calendar = Calendar.current
     private let eventStore = EKEventStore()
 
-    private var daysInMonth: [Date] {
+    private var visibleDates: [Date?] {
         guard let monthInterval = calendar.dateInterval(of: .month, for: currentMonth) else { return [] }
-        var dates: [Date] = []
-        var date = monthInterval.start
+        var dates: [Date?] = []
+
+        let firstDayOfMonth = monthInterval.start
+        let weekday = calendar.component(.weekday, from: firstDayOfMonth) // 1 = Sunday, 2 = Monday...
+
+        // Add padding (weekday-1) because calendar starts with Sunday
+        let padding = weekday - calendar.firstWeekday
+        let blankDays = padding < 0 ? padding + 7 : padding
+        dates.append(contentsOf: Array(repeating: nil, count: blankDays))
+
+        var date = firstDayOfMonth
         while date < monthInterval.end {
             dates.append(date)
             date = calendar.date(byAdding: .day, value: 1, to: date)!
         }
+
         return dates
     }
 
@@ -68,22 +85,31 @@ struct Schedule: View {
 
             // Calendar grid
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 10) {
+                // Weekday headers
                 ForEach(calendar.shortWeekdaySymbols, id: \.self) { day in
                     Text(day)
                         .font(.headline)
                         .frame(maxWidth: .infinity)
                 }
-                ForEach(daysInMonth, id: \.self) { date in
-                    Text("\(calendar.component(.day, from: date))")
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                        .padding(8)
-                        .background(selectedDate == date ? Color.blue.opacity(0.7) : Color.gray.opacity(0.2))
-                        .cornerRadius(5)
-                        .onTapGesture {
-                            selectedDate = date
-                            selectedTime = Date() // Reset time
-                            showingEventEditor = true
-                        }
+
+                // Dates of the month
+                ForEach(visibleDates.indices, id: \.self) { index in
+                    if let date = visibleDates[index] {
+                        Text("\(calendar.component(.day, from: date))")
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .padding(8)
+                            .background(isSameDay(selectedDate, date) ? Color.blue.opacity(0.7) : Color.gray.opacity(0.2))
+                            .cornerRadius(5)
+                            .onTapGesture {
+                                selectedDate = calendar.startOfDay(for: date)
+                                selectedTime = Date()
+                                showingEventEditor = true
+                            }
+                    } else {
+                        // Blank cell for padding
+                        Text("")
+                            .frame(maxWidth: .infinity, minHeight: 40)
+                    }
                 }
             }
             .padding()
@@ -100,7 +126,7 @@ struct Schedule: View {
                             Text(event.date, style: .time)
                                 .font(.subheadline)
                         }
-                        .contentShape(Rectangle()) // Make entire row tappable
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             editingEvent = event
                             editingTitle = event.title
@@ -114,7 +140,6 @@ struct Schedule: View {
             .listStyle(.insetGrouped)
         }
         .sheet(isPresented: $showingEventEditor) {
-            // Add Event Sheet
             VStack(spacing: 20) {
                 Text("New Event")
                     .font(.headline)
@@ -133,11 +158,10 @@ struct Schedule: View {
                         date = combineDateAndTime(date: date, time: selectedTime)
                         let newEvent = Event(date: date, title: newEventTitle)
                         scheduledEvents.append(newEvent)
-                        NotificationCenterStorage.shared.addEvent(newEvent) // this will add to notification storage
+                        NotificationCenterStorage.shared.addEvent(newEvent)
                     }
                     showingEventEditor = false
                 }
-
                 .padding()
 
                 Button("Add to Apple Calendar") {
@@ -164,7 +188,6 @@ struct Schedule: View {
             .padding()
         }
         .sheet(isPresented: $showingEditSheet) {
-            // Edit Event Sheet
             VStack(spacing: 20) {
                 Text("Edit Event")
                     .font(.headline)
@@ -211,6 +234,11 @@ struct Schedule: View {
     }
 
     // Helpers
+
+    func isSameDay(_ date1: Date?, _ date2: Date?) -> Bool {
+        guard let date1 = date1, let date2 = date2 else { return false }
+        return Calendar.current.isDate(date1, inSameDayAs: date2)
+    }
 
     func combineDateAndTime(date: Date, time: Date) -> Date {
         let calendar = Calendar.current
