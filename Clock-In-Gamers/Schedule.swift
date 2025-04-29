@@ -178,7 +178,7 @@ struct Schedule: View {
                 Button("Save Changes") {
                     if let editingEvent = editingEvent {
                         if let index = scheduledEvents.firstIndex(where: { $0.id == editingEvent.id }) {
-                            scheduledEvents[index] = Event(id: editingEvent.id, date: editingTime, title: editingTitle)
+                            scheduledEvents[index] = Event(date: editingTime, title: editingTitle)
                         }
                     }
                     showingEditSheet = false
