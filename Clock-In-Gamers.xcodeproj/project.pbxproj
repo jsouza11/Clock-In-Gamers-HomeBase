@@ -92,9 +92,6 @@
 				D0E753BF2D5C68F100E9605B /* Clock-In-GamersTests */,
 				D0E753C92D5C68F100E9605B /* Clock-In-GamersUITests */,
 				D0E753AC2D5C68EF00E9605B /* Products */,
-				D35F77502DC0819800C5FAE6 /* Components */,
-				D35F77512DC081A000C5FAE6 /* Core */,
-				D35F77522DC081A700C5FAE6 /* Model */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,27 +103,6 @@
 				D0E753C62D5C68F100E9605B /* Clock-In-GamersUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		D35F77502DC0819800C5FAE6 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		D35F77512DC081A000C5FAE6 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		D35F77522DC081A700C5FAE6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
