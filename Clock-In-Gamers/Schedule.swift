@@ -131,10 +131,13 @@ struct Schedule: View {
                 Button("Save in App") {
                     if var date = selectedDate {
                         date = combineDateAndTime(date: date, time: selectedTime)
-                        scheduledEvents.append(Event(date: date, title: newEventTitle))
+                        let newEvent = Event(date: date, title: newEventTitle)
+                        scheduledEvents.append(newEvent)
+                        NotificationCenterStorage.shared.addEvent(newEvent) // this will add to notification storage
                     }
                     showingEventEditor = false
                 }
+
                 .padding()
 
                 Button("Add to Apple Calendar") {
@@ -178,7 +181,7 @@ struct Schedule: View {
                 Button("Save Changes") {
                     if let editingEvent = editingEvent {
                         if let index = scheduledEvents.firstIndex(where: { $0.id == editingEvent.id }) {
-                            scheduledEvents[index] = Event(id: editingEvent.id, date: editingTime, title: editingTitle)
+                            scheduledEvents[index] = Event(date: editingTime, title: editingTitle)
                         }
                     }
                     showingEditSheet = false
