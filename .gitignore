@@ -51,3 +51,6 @@ DerivedData/
 .DS_Store
 .env
 *.swp
+
+# Ignore all macOS metadata files
+*.DS_Store
