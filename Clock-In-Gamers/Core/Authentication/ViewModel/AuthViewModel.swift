@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestoreCombineSwift
+import FirebaseFirestore
 
 
 protocol AuthenticationFormProtocol {

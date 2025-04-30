@@ -16,7 +16,7 @@ struct LoginView: View {
         NavigationStack {
             VStack {
                 // Logo
-                Image("Logo")
+                Image("logo")
                     .resizable()
                     .scaledToFill()
                     .frame(width: 200, height: 100)
