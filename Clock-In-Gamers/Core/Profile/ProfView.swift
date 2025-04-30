@@ -68,4 +68,6 @@ struct ProfView: View {
 
 #Preview {
     ProfView()
+        .environmentObject(AuthViewModel())
+
 }

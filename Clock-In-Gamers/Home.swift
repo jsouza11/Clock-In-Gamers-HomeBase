@@ -10,7 +10,7 @@ import SwiftUI
 struct Home: View {
     @State var isClockedIn: Bool = false
     @State private var showNotifications = false
-    @EnvironmentObject var appData: AppData
+    @EnvironmentObject var viewModel: AuthViewModel
 
     private func clockIn() {
         isClockedIn = true
@@ -41,7 +41,7 @@ struct Home: View {
 
                     HStack {
                         VStack {
-                            Text("Friend List")
+                            Text("Your Profile")
                                 .foregroundColor(.white)
                                 .font(.title)
                                 .padding()
@@ -56,11 +56,12 @@ struct Home: View {
 
                     ScrollView {
                         VStack(spacing: 20) {
-                            ForEach(appData.allUsers) { user in
-                                NavigationLink(destination: UserDetailView(user: user)) {
-                                    UserRowView(user: user)
-                                        .padding(.horizontal)
-                                }
+                            if let user = viewModel.currentUser {
+                                UserRowView(user: user)
+                                    .padding(.horizontal)
+                            } else {
+                                Text("Loading user...")
+                                    .foregroundColor(.gray)
                             }
                         }
                         .padding()
@@ -70,13 +71,8 @@ struct Home: View {
                 }
                 .background(Color.black.edgesIgnoringSafeArea(.all))
                 .onAppear {
-                    if let firstUser = appData.allUsers.first {
-                        if firstUser.name == "Frank" {
-                            firstUser.isClockedIn = true
-                            if firstUser.clockedInAt == nil {
-                                firstUser.clockedInAt = Date()
-                            }
-                        }
+                    if let user = viewModel.currentUser, user.fullName == "Frank" {
+                        isClockedIn = true
                     }
                 }
                 .toolbar {
@@ -110,6 +106,5 @@ struct Home: View {
 
 #Preview {
     Home()
-        .environmentObject(AppData())
+        .environmentObject(AuthViewModel.preview)
 }
-

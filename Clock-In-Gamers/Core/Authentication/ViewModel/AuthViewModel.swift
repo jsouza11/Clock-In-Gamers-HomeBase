@@ -43,7 +43,7 @@ class AuthViewModel: ObservableObject {
         do {
                 let result = try await Auth.auth().createUser(withEmail: email, password: password)
                 self.userSession = result.user
-                let user = UserData(id: result.user.uid, fullName: fullname, email: email)
+            let user = UserData(id: result.user.uid, fullName: fullname, email: email)
                 let encodedUser = try Firestore.Encoder().encode(user)
                 try await Firestore.firestore()
                     .collection("users")
@@ -77,4 +77,31 @@ class AuthViewModel: ObservableObject {
         
         print("DEBUG: Current user is \(self.currentUser)")
     }
+//    func updateClockStatus(isClockedIn: Bool) async {
+//        guard let uid = Auth.auth().currentUser?.uid else { return }
+//
+//        do {
+//            try await Firestore.firestore()
+//                .collection("users")
+//                .document(uid)
+//                .updateData(["isClockedIn": isClockedIn])
+//
+//            self.currentUser?.isClockedIn = isClockedIn
+//            print("DEBUG: Updated clock status to \(isClockedIn)")
+//        } catch {
+//            print("DEBUG: Failed to update clock status: \(error.localizedDescription)")
+//        }
+//    }
+    
+    
+    }
+extension AuthViewModel {
+    static var preview: AuthViewModel {
+        let vm = AuthViewModel()
+        vm.currentUser = UserData.MOCK_USER
+        return vm
+    }
 }
+
+
+

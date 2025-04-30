@@ -1,64 +1,44 @@
-//
-//  AppNavigation.swift
-//  Clock-In-Gamers
-//
-//  Created by Jake Souza on 4/24/25.
-//
-
 import SwiftUI
 
-// Chatroom View
-struct ChatroomView: View {
-    var body: some View {
-        ZStack {
-            Color.black.ignoresSafeArea()
-            VStack(spacing: 20) {
-                Image(systemName: "bubble.left.and.bubble.right.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
-                    .foregroundColor(.white)
-
-                Text("Chatroom coming soon...")
-                    .font(.title2)
-                    .foregroundColor(.white)
-            }
-        }
-    }
-}
-
-// App Navigation View
 struct AppNavigation: View {
+    @EnvironmentObject var viewModel: AuthViewModel
+    @State private var selectedTab = 0  //Track selected tab
+
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor.white
     }
 
     var body: some View {
         NavigationStack {
-            TabView {
+            TabView(selection: $selectedTab) {
+                
                 Home()
                     .tabItem {
                         Image(systemName: "house")
                         Text("Home")
                     }
+                    .tag(0)  //Assign tag
 
-                ProfileView()
+                ProfView()
                     .tabItem {
                         Image(systemName: "person.circle")
                         Text("Profile")
                     }
+                    .tag(1)
 
                 Schedule()
                     .tabItem {
                         Image(systemName: "calendar")
                         Text("Schedule")
                     }
+                    .tag(2)
 
                 ChatroomView()
                     .tabItem {
                         Image(systemName: "bubble.left.and.bubble.right")
                         Text("Chatroom")
                     }
+                    .tag(3)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -71,8 +51,10 @@ struct AppNavigation: View {
             }
         }
     }
-}
 
+}
 #Preview {
     AppNavigation()
+        .environmentObject(AuthViewModel.preview)
+        .environmentObject(AppData())
 }

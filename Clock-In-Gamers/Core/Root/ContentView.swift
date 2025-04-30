@@ -6,30 +6,19 @@
 //
 import SwiftUI
 
-struct ContentView: View {
-    // Usernames array
-   // @State private var users: [UserData] = []
-  //  @State private var isClockedIn = false
-   // @ObservedObject var appData = AppData()
-   // @StateObject var authManager = AuthManager()
-    
+struct ContentView: View {    
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                ProfView()
+                Home()
             }
             else {
                 LoginView()
             }
             
             
-            
-            
-            //Login(isUserAuthed: authManager.isAuthenticated)
-               // .environmentObject(appData)
-                //.environmentObject(authManager)
         }
     }
     
