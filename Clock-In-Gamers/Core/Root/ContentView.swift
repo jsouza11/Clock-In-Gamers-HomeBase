@@ -8,25 +8,36 @@ import SwiftUI
 
 struct ContentView: View {
     // Usernames array
-    @State private var users: [User] = []
-
-    @State private var isClockedIn = false
-//    @ObservedObject var theUser = User(bio: "Hello", name: "Victor", discordLink: "", steamUserName: "", xboxUserName: "", status: StatusType.CLOCKEDIN, points: 100, type: GamerType.RELIABLE, isClockedIn: false)
-    @ObservedObject var appData = AppData()
-    @StateObject var authManager = AuthManager()
+   // @State private var users: [UserData] = []
+  //  @State private var isClockedIn = false
+   // @ObservedObject var appData = AppData()
+   // @StateObject var authManager = AuthManager()
     
-    init() {
-    }
-
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
-        Login(isUserAuthed: authManager.isAuthenticated)
-            .environmentObject(appData)
-            .environmentObject(authManager)
+        Group {
+            if viewModel.userSession != nil {
+                ProfView()
+            }
+            else {
+                LoginView()
+            }
+            
+            
+            
+            
+            //Login(isUserAuthed: authManager.isAuthenticated)
+               // .environmentObject(appData)
+                //.environmentObject(authManager)
+        }
     }
-}
-
-
-
-#Preview {
-    ContentView()
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
+    }
+    
+  
 }

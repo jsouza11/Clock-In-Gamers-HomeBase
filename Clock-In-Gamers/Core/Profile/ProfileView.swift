@@ -109,27 +109,7 @@ struct ProfileView: View {
                             .cornerRadius(10)
                             .padding()
 
-                        if !appData.activeUser.discordLink.isEmpty {
-                            HStack {
-                                Image("discord")
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                if let urlExists = try? URL(string: appData.activeUser.discordLink) {
-                                    Link(destination: urlExists) {
-                                        Text("Discord link")
-                                            .foregroundColor(.white)
-                                            .padding(.horizontal, 10)
-                                            .padding(.vertical, 5)
-                                            .background(discordPurple)
-                                            .clipShape(Capsule())
-                                    }
-                                    .padding(.leading, 10)
-                                } else {
-                                    Text("No link")
-                                        .padding(.leading, 10)
-                                }
-                            }
-                            .padding()
+                    
                         }
 
                         if !appData.activeUser.steamUserName.isEmpty {
@@ -215,10 +195,10 @@ struct ProfileView: View {
                 }
             }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .background(Color.black.edgesIgnoringSafeArea(.all))
+        //.navigationViewStyle(StackNavigationViewStyle())
+        //.background(Color.black.edgesIgnoringSafeArea(.all))
     }
-}
+
 
 
 struct ProfileView_Previews: PreviewProvider {
