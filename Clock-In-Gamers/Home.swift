@@ -12,13 +12,6 @@ struct Home: View {
     @State private var showNotifications = false
     @EnvironmentObject var viewModel: AuthViewModel
 
-    private func clockIn() {
-        isClockedIn = true
-    }
-
-    private func clockOut() {
-        isClockedIn = false
-    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -37,18 +30,28 @@ struct Home: View {
                     }
                     .padding(.horizontal)
 
-                    TopWidgetView(isClockedIn: $isClockedIn, clockIn: clockIn, clockOut: clockOut)
+                    if let user = viewModel.currentUser {
+                        TopWidgetView(
+                            isClockedIn: user.isClockedIn,
+                            fullName: user.fullName
+                        )
+                        .environmentObject(viewModel)
+                    } else {
+                        ProgressView("Loading profile...")
+                            .foregroundColor(.white)
+                            .padding()
+                    }
 
                     HStack {
-                        VStack {
-                            Text("Your Profile")
+                        VStack(alignment: .leading) {
+                            Text("Friends List")
                                 .foregroundColor(.white)
                                 .font(.title)
-                                .padding()
+                                .padding(.horizontal)
                         }
                         Spacer()
                     }
-                    .padding()
+                    .padding(.top)
 
                     Divider()
                         .background(Color.white)
@@ -56,12 +59,16 @@ struct Home: View {
 
                     ScrollView {
                         VStack(spacing: 20) {
-                            if let user = viewModel.currentUser {
+                            // Mocked friend list for now (since allUsers isn't part of AuthViewModel)
+                            let friends: [UserData] = [
+                                UserData(id: "1", fullName: "Alex Rivera", email: "alex@example.com", isClockedIn: true),
+                                UserData(id: "2", fullName: "Sam Lee", email: "sam@example.com", isClockedIn: true),
+                                UserData(id: "3", fullName: "Toni Patel", email: "toni@example.com", isClockedIn: true)
+                            ]
+
+                            ForEach(friends) { user in
                                 UserRowView(user: user)
                                     .padding(.horizontal)
-                            } else {
-                                Text("Loading user...")
-                                    .foregroundColor(.gray)
                             }
                         }
                         .padding()
@@ -71,10 +78,11 @@ struct Home: View {
                 }
                 .background(Color.black.edgesIgnoringSafeArea(.all))
                 .onAppear {
-                    if let user = viewModel.currentUser, user.fullName == "Frank" {
-                        isClockedIn = true
+                    Task {
+                        await viewModel.fetchUser()
                     }
                 }
+                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
@@ -106,5 +114,6 @@ struct Home: View {
 
 #Preview {
     Home()
-        .environmentObject(AuthViewModel.preview)
+        .environmentObject(AuthViewModel())
+        .environmentObject(AppData())
 }

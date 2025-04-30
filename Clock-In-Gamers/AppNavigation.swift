@@ -1,8 +1,14 @@
+//
+//  AppNavagation.swift
+//  Clock-In-Gamers
+//
+//  Created by Jake Souza on 4/24/25.
+//
 import SwiftUI
 
 struct AppNavigation: View {
     @EnvironmentObject var viewModel: AuthViewModel
-    @State private var selectedTab = 0  //Track selected tab
+    @State private var selectedTab = 0
 
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor.white
@@ -11,13 +17,12 @@ struct AppNavigation: View {
     var body: some View {
         NavigationStack {
             TabView(selection: $selectedTab) {
-                
                 Home()
                     .tabItem {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                    .tag(0)  //Assign tag
+                    .tag(0)
 
                 ProfView()
                     .tabItem {
@@ -51,10 +56,9 @@ struct AppNavigation: View {
             }
         }
     }
-
 }
 #Preview {
     AppNavigation()
-        .environmentObject(AuthViewModel.preview)
+        .environmentObject(AuthViewModel())
         .environmentObject(AppData())
 }

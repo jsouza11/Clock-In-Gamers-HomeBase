@@ -8,100 +8,149 @@
 import Foundation
 import Firebase
 import FirebaseAuth
-import FirebaseFirestoreCombineSwift
 import FirebaseFirestore
-
+import FirebaseFirestoreCombineSwift
 
 protocol AuthenticationFormProtocol {
     var formisValid: Bool { get }
-    
 }
+
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: UserData?
-    
+
     init() {
         self.userSession = Auth.auth().currentUser
-        
+
         Task {
             await fetchUser()
+            await patchMissingIsClockedInField()
         }
     }
-    
-    func signIn(withEmail email: String, password:String) async throws {
+
+    func signIn(withEmail email: String, password: String) async throws {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             self.userSession = result.user
             await fetchUser()
         } catch {
-            print("DEBUG failed to login with error \(error.localizedDescription)")
+            print("DEBUG: Failed to login with error: \(error.localizedDescription)")
         }
     }
-    
-    func createUser(withEmail email: String, password: String, fullname:String) async throws {
+
+    func createUser(withEmail email: String, password: String, fullname: String) async throws {
         do {
-                let result = try await Auth.auth().createUser(withEmail: email, password: password)
-                self.userSession = result.user
-            let user = UserData(id: result.user.uid, fullName: fullname, email: email)
-                let encodedUser = try Firestore.Encoder().encode(user)
-                try await Firestore.firestore()
-                    .collection("users")
-                    .document(result.user.uid)
-                    .setData(encodedUser)
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            self.userSession = result.user
+
+            let user = UserData(id: result.user.uid, fullName: fullname, email: email, isClockedIn: false)
+            let encodedUser = try Firestore.Encoder().encode(user)
+
+            try await Firestore.firestore()
+                .collection("users")
+                .document(result.user.uid)
+                .setData(encodedUser)
+
             await fetchUser()
-            } catch {
-                print("Failed to create user: \(error.localizedDescription)")
-            }
-    }
-    
-    func signOut()  {
-        do {
-            try Auth.auth().signOut() //signs out user on backend
-            self.userSession = nil  // wipes out user session and takes us back to login screen
-            self.currentUser = nil  // wipes out current user data model
         } catch {
-            print("DEBUG: Failed to sign out with error \(error.localizedDescription)")
+            print("DEBUG: Failed to create user: \(error.localizedDescription)")
         }
     }
-    
-    func deleteAccount()  {
-        
+
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            self.userSession = nil
+            self.currentUser = nil
+        } catch {
+            print("DEBUG: Failed to sign out with error: \(error.localizedDescription)")
+        }
     }
-    
-    func fetchUser() async {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
-        self.currentUser = try? snapshot.data(as: UserData.self)
-        
-        print("DEBUG: Current user is \(self.currentUser)")
+
+    func deleteAccount() {
+        // Placeholder for account deletion logic
     }
-//    func updateClockStatus(isClockedIn: Bool) async {
+
+//    func fetchUser() async {
 //        guard let uid = Auth.auth().currentUser?.uid else { return }
 //
-//        do {
-//            try await Firestore.firestore()
-//                .collection("users")
-//                .document(uid)
-//                .updateData(["isClockedIn": isClockedIn])
+//        guard let snapshot = try? await Firestore.firestore()
+//            .collection("users")
+//            .document(uid)
+//            .getDocument() else { return }
 //
-//            self.currentUser?.isClockedIn = isClockedIn
-//            print("DEBUG: Updated clock status to \(isClockedIn)")
-//        } catch {
-//            print("DEBUG: Failed to update clock status: \(error.localizedDescription)")
-//        }
+//        self.currentUser = try? snapshot.data(as: UserData.self)
+//
+//        print("DEBUG: Current user is \(String(describing: self.currentUser))")
 //    }
     
-    
+    func fetchUser() async {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("DEBUG: No user ID found.")
+            return
+        }
+
+        do {
+            let snapshot = try await Firestore.firestore()
+                .collection("users")
+                .document(uid)
+                .getDocument()
+
+            if let user = try? snapshot.data(as: UserData.self) {
+                self.currentUser = user
+                print("DEBUG: Successfully fetched user: \(user)")
+            } else {
+                print("DEBUG: Failed to decode UserData from snapshot.")
+            }
+        } catch {
+            print("DEBUG: Firestore error: \(error.localizedDescription)")
+        }
     }
-extension AuthViewModel {
-    static var preview: AuthViewModel {
-        let vm = AuthViewModel()
-        vm.currentUser = UserData.MOCK_USER
-        return vm
+
+    func updateClockStatus(isClockedIn: Bool) async {
+        guard let uid = userSession?.uid else { return }
+
+        await Task.detached(priority: .background) {
+            do {
+                try await Firestore.firestore()
+                    .collection("users")
+                    .document(uid)
+                    .updateData(["isClockedIn": isClockedIn])
+
+                await MainActor.run {
+                    self.currentUser?.isClockedIn = isClockedIn
+                    print("DEBUG: Clock status updated to \(isClockedIn)")
+                }
+
+            } catch {
+                print("DEBUG: Failed to update clock status: \(error.localizedDescription)")
+            }
+        }.value
+    }
+    
+    func patchMissingIsClockedInField() async {
+        guard let uid = userSession?.uid else { return }
+
+        let docRef = Firestore.firestore().collection("users").document(uid)
+
+        do {
+            let snapshot = try await docRef.getDocument()
+            if let data = snapshot.data(), data["isClockedIn"] == nil {
+                try await docRef.updateData(["isClockedIn": false])
+                print("✅ Patched isClockedIn for user.")
+            }
+        } catch {
+            print("❌ Error patching user document: \(error.localizedDescription)")
+        }
     }
 }
 
-
+//extension AuthViewModel {
+//    static var preview: AuthViewModel {
+//        let vm = AuthViewModel()
+//        vm.currentUser = UserData.MOCK_USER
+//        return vm
+//    }
+//}
 
