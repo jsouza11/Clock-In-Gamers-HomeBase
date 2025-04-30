@@ -41,11 +41,9 @@ class AuthViewModel: ObservableObject {
 
     func createUser(withEmail email: String, password: String, fullName: String, username: String) async throws {
         do {
-            // Create user with FirebaseAuth
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
 
-            // Initialize full user model with defaults
             let user = UserData(
                 id: result.user.uid,
                 fullName: fullName,
@@ -56,7 +54,6 @@ class AuthViewModel: ObservableObject {
                 friendRequests: FriendRequests()
             )
 
-            // Encode to dictionary and write to Firestore
             let encodedUser = try Firestore.Encoder().encode(user)
 
             try await Firestore.firestore()
@@ -64,7 +61,6 @@ class AuthViewModel: ObservableObject {
                 .document(result.user.uid)
                 .setData(encodedUser)
 
-            // Fetch the user to sync state
             await fetchUser()
         } catch {
             print("DEBUG: Failed to create user: \(error.localizedDescription)")
@@ -86,11 +82,10 @@ class AuthViewModel: ObservableObject {
         // Placeholder for account deletion logic
     }
 
-    
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("DEBUG: No user ID found.")
-            self.userSession = nil         // 🔑 Also reset if fetch fails entirely
+            self.userSession = nil
             self.currentUser = nil
             return
         }
@@ -106,13 +101,12 @@ class AuthViewModel: ObservableObject {
                 print("DEBUG: Successfully fetched user: \(user)")
             } else {
                 print("DEBUG: Failed to decode UserData from snapshot.")
-                self.userSession = nil         // 🔑 Also reset if fetch fails entirely
+                self.userSession = nil
                 self.currentUser = nil
-                return
             }
         } catch {
             print("DEBUG: Firestore error: \(error.localizedDescription)")
-            self.userSession = nil         // 🔑 Also reset if fetch fails entirely
+            self.userSession = nil
             self.currentUser = nil
         }
     }
@@ -137,7 +131,7 @@ class AuthViewModel: ObservableObject {
             }
         }.value
     }
-    
+
     func patchMissingIsClockedInField() async {
         guard let uid = userSession?.uid else { return }
 
@@ -147,13 +141,13 @@ class AuthViewModel: ObservableObject {
             let snapshot = try await docRef.getDocument()
             if let data = snapshot.data(), data["isClockedIn"] == nil {
                 try await docRef.updateData(["isClockedIn": false])
-                print("✅ Patched isClockedIn for user.")
+                print("Patched isClockedIn for user.")
             }
         } catch {
-            print("❌ Error patching user document: \(error.localizedDescription)")
+            print("Error patching user document: \(error.localizedDescription)")
         }
     }
-    
+
     func sendFriendRequest(toUsername: String) async {
         guard let uid = userSession?.uid else { return }
         let manager = FriendManager()
@@ -171,6 +165,25 @@ class AuthViewModel: ObservableObject {
         let manager = FriendManager()
         try? await manager.declineFriendRequest(fromUID: fromUID, toUID: uid)
     }
+
+    func removeFriend(friendUID: String) async {
+        guard let myUID = currentUser?.id else { return }
+        let db = Firestore.firestore()
+
+        let batch = db.batch()
+        let meRef = db.collection("users").document(myUID)
+        let themRef = db.collection("users").document(friendUID)
+
+        batch.updateData(["friends": FieldValue.arrayRemove([friendUID])], forDocument: meRef)
+        batch.updateData(["friends": FieldValue.arrayRemove([myUID])], forDocument: themRef)
+
+        do {
+            try await batch.commit()
+            await fetchUser()
+        } catch {
+            print("Failed to remove friend: \(error.localizedDescription)")
+        }
+    }
 }
 
 extension AuthViewModel {
@@ -180,4 +193,3 @@ extension AuthViewModel {
         return vm
     }
 }
-
