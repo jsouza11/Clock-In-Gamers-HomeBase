@@ -39,12 +39,12 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    func createUser(withEmail email: String, password: String, fullname: String) async throws {
+    func createUser(withEmail email: String, password: String, fullname: String, username: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
 
-            let user = UserData(id: result.user.uid, fullName: fullname, email: email, isClockedIn: false)
+            let user = UserData(id: result.user.uid, fullName: fullname, email: email, username: username, isClockedIn: false)
             let encodedUser = try Firestore.Encoder().encode(user)
 
             try await Firestore.firestore()
@@ -88,6 +88,8 @@ class AuthViewModel: ObservableObject {
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("DEBUG: No user ID found.")
+            self.userSession = nil         // 🔑 Also reset if fetch fails entirely
+            self.currentUser = nil
             return
         }
 
@@ -102,9 +104,14 @@ class AuthViewModel: ObservableObject {
                 print("DEBUG: Successfully fetched user: \(user)")
             } else {
                 print("DEBUG: Failed to decode UserData from snapshot.")
+                self.userSession = nil         // 🔑 Also reset if fetch fails entirely
+                self.currentUser = nil
+                return
             }
         } catch {
             print("DEBUG: Firestore error: \(error.localizedDescription)")
+            self.userSession = nil         // 🔑 Also reset if fetch fails entirely
+            self.currentUser = nil
         }
     }
 
@@ -146,11 +153,11 @@ class AuthViewModel: ObservableObject {
     }
 }
 
-//extension AuthViewModel {
-//    static var preview: AuthViewModel {
-//        let vm = AuthViewModel()
-//        vm.currentUser = UserData.MOCK_USER
-//        return vm
-//    }
-//}
+extension AuthViewModel {
+    static var preview: AuthViewModel {
+        let vm = AuthViewModel()
+        vm.currentUser = UserData.MOCK_USER
+        return vm
+    }
+}
 

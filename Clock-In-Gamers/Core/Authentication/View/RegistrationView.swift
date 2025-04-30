@@ -12,6 +12,7 @@ struct RegistrationView: View {
     @State private var fullName = ""
     @State private var password = ""
     @State private var confirmPassword = ""
+    @State private var username = ""
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: AuthViewModel
     
@@ -33,6 +34,10 @@ struct RegistrationView: View {
                 InputView(text: $fullName,
                           title: "Full Name",
                           placeholder: "Enter your name")
+                
+                InputView(text: $username,
+                          title: "Username",
+                          placeholder: "Please enter a username")
                 
                 InputView(text: $password,
                           title: "Password",
@@ -67,7 +72,7 @@ struct RegistrationView: View {
                 
                 Button {
                     Task {
-                        try await viewModel.createUser(withEmail: email, password: password, fullname: fullName)
+                        try await viewModel.createUser(withEmail: email, password: password, fullname: fullName, username: username)
                     }
                     
                 }  label: {

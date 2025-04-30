@@ -66,9 +66,9 @@ struct Home: View {
                             VStack(spacing: 20) {
                                 // Mocked friend list for now (since allUsers isn't part of AuthViewModel)
                                 let friends: [UserData] = [
-                                    UserData(id: "1", fullName: "Alex Rivera", email: "alex@example.com", isClockedIn: true),
-                                    UserData(id: "2", fullName: "Sam Lee", email: "sam@example.com", isClockedIn: true),
-                                    UserData(id: "3", fullName: "Toni Patel", email: "toni@example.com", isClockedIn: true)
+                                    UserData(id: "1", fullName: "Alex Rivera", email: "alex@example.com", username: "test1234", isClockedIn: true),
+                                    UserData(id: "2", fullName: "Sam Lee", email: "sam@example.com", username: "test1234", isClockedIn: true),
+                                    UserData(id: "3", fullName: "Toni Patel", email: "toni@example.com", username: "test1234", isClockedIn: true)
                                 ]
                                 
                                 ForEach(friends) { user in

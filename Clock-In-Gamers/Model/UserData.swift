@@ -11,6 +11,7 @@ struct UserData: Identifiable, Codable {
     let id: String
     let fullName: String
     let email: String
+    let username: String
     var isClockedIn: Bool
     
     var initials: String {
@@ -24,6 +25,6 @@ struct UserData: Identifiable, Codable {
 }
 
 extension UserData {
-    static var MOCK_USER = UserData(id: NSUUID().uuidString, fullName: "Jake Souza", email: "jake@example.com", isClockedIn: false)
+    static var MOCK_USER = UserData(id: NSUUID().uuidString, fullName: "Jake Souza", email: "jake@example.com", username: "testing123", isClockedIn: false)
         
 }
