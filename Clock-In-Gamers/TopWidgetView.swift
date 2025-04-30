@@ -7,12 +7,13 @@ import SwiftUI
 
 struct TopWidgetView: View {
     var isClockedIn: Bool
-    var fullName: String
-    @EnvironmentObject var viewModel: AuthViewModel
+      var clockIn: () -> Void
+      var clockOut: () -> Void
+      var fullName: String
+      var onClockStatusChanged: () -> Void
+      @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
-        let isClockedIn = viewModel.currentUser?.isClockedIn ?? false
-
         VStack {
             HStack {
                 VStack(alignment: .leading) {
@@ -25,29 +26,33 @@ struct TopWidgetView: View {
                         .foregroundColor(.black)
                     Text("Lifetime Points: 1400")
                         .foregroundColor(.black)
+
                     Text("Status: \(isClockedIn ? "Clocked In" : "Clocked Out")")
                         .font(.subheadline)
                         .foregroundColor(isClockedIn ? .green : .red)
 
-                    Button(action: {
-                        Task {
-                            await viewModel.updateClockStatus(isClockedIn: !isClockedIn)
+                    HStack {
+                        Button(action: {
+                            Task {
+                                await viewModel.updateClockStatus(isClockedIn: !isClockedIn)
+                                onClockStatusChanged()
+                            }
+                        }) {
+                            Text(isClockedIn ? "Clock Out" : "Clock In")
+                                .fontWeight(.bold)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(isClockedIn ? Color.red : Color.green)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                         }
-                    }) {
-                        Text(isClockedIn ? "Clock Out" : "Clock In")
-                            .fontWeight(.bold)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(isClockedIn ? Color.red : Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
                     }
                     .padding(.top, 10)
                 }
 
                 Spacer()
 
-                Image("kirby") // Replace with your custom image if needed
+                Image("kirby") // Or replace with your app icon
                     .resizable()
                     .frame(width: 60, height: 60)
             }

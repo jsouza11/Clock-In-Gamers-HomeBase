@@ -9,28 +9,23 @@ import SwiftUI
 
 struct UserRowView: View {
     var user: UserData
-    
+
     var body: some View {
         HStack {
-            Image(systemName: "person.circle.fill") // Static icon
-                .resizable()
-                .frame(width: 50, height: 50)
-                .foregroundColor(.white)
-                .padding()
-            
-            Spacer()
-            
-            Text(user.fullName)
-                .foregroundColor(.white)
+            Image(systemName: user.isClockedIn ? "circle.fill" : "circle")
+                .foregroundColor(user.isClockedIn ? .green : .gray)
+
+            Text(user.username)
                 .font(.title2)
-            
+                .foregroundColor(.white)
+
             Spacer()
-            
-            Text(user.email)
-                .foregroundColor(.gray)
+
+            Text(user.isClockedIn ? "Online" : "Offline")
+                .foregroundColor(user.isClockedIn ? .green : .red)
                 .font(.subheadline)
         }
-        .padding(.horizontal)
+        .padding()
         .background(Color.gray.opacity(0.2))
         .cornerRadius(10)
     }
