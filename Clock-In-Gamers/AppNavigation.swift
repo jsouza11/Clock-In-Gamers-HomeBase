@@ -7,40 +7,68 @@
 
 import SwiftUI
 
+// Chatroom View
+struct ChatroomView: View {
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            VStack(spacing: 20) {
+                Image(systemName: "bubble.left.and.bubble.right.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 60)
+                    .foregroundColor(.white)
+
+                Text("Chatroom coming soon...")
+                    .font(.title2)
+                    .foregroundColor(.white)
+            }
+        }
+    }
+}
+
+// App Navigation View
 struct AppNavigation: View {
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor.white
     }
-    
+
     var body: some View {
         NavigationStack {
             TabView {
                 Home()
                     .tabItem {
                         Image(systemName: "house")
-                            .animation(.bouncy)
                         Text("Home")
                     }
+
                 ProfileView()
                     .tabItem {
                         Image(systemName: "person.circle")
-                            .animation(.bouncy)
                         Text("Profile")
                     }
+
                 Schedule()
                     .tabItem {
                         Image(systemName: "calendar")
-                            .animation(.bouncy)
                         Text("Schedule")
                     }
-                NotificationCenterView()
+
+                ChatroomView()
                     .tabItem {
-                        Image(systemName: "bell")
-                            .animation(.bouncy)
-                        Text("Notifications")
+                        Image(systemName: "bubble.left.and.bubble.right")
+                        Text("Chatroom")
                     }
             }
-            .navigationTitle("Clock-In-Gamers") // Title on top
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Image("logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 80)
+                }
+            }
         }
     }
 }

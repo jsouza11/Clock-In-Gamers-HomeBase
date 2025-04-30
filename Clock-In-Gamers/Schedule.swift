@@ -3,14 +3,6 @@
 //  Clock-In-Gamers
 //
 //  Created by Jake Souza on 4/24/25.
-//
-
-//
-//  Schedule.swift
-//  Clock-In-Gamers
-//
-//  Created by Jake Souza on 4/24/25.
-//
 
 import SwiftUI
 import EventKit
@@ -29,11 +21,8 @@ struct Schedule: View {
     @State private var newEventTitle = ""
     @State private var scheduledEvents: [Event] = []
 
-    // New for alerts
     @State private var showSuccessAlert = false
     @State private var showSettingsAlert = false
-
-    // New for editing
     @State private var editingEvent: Event?
     @State private var editingTitle: String = ""
     @State private var editingTime: Date = Date()
@@ -47,9 +36,7 @@ struct Schedule: View {
         var dates: [Date?] = []
 
         let firstDayOfMonth = monthInterval.start
-        let weekday = calendar.component(.weekday, from: firstDayOfMonth) // 1 = Sunday, 2 = Monday...
-
-        // Add padding (weekday-1) because calendar starts with Sunday
+        let weekday = calendar.component(.weekday, from: firstDayOfMonth)
         let padding = weekday - calendar.firstWeekday
         let blankDays = padding < 0 ? padding + 7 : padding
         dates.append(contentsOf: Array(repeating: nil, count: blankDays))
@@ -70,81 +57,155 @@ struct Schedule: View {
     }
 
     var body: some View {
-        VStack {
-            // Month navigation
-            HStack {
-                Button("<") { currentMonth = calendar.date(byAdding: .month, value: -1, to: currentMonth)! }
-                Spacer()
-                Text(monthTitle)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                Spacer()
-                Button(">") { currentMonth = calendar.date(byAdding: .month, value: 1, to: currentMonth)! }
-            }
-            .padding()
-
-            // Calendar grid
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 10) {
-                // Weekday headers
-                ForEach(calendar.shortWeekdaySymbols, id: \.self) { day in
-                    Text(day)
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
+        NavigationStack {
+            VStack {
+                HStack {
+                    Button("<") {
+                        currentMonth = calendar.date(byAdding: .month, value: -1, to: currentMonth)!
+                    }
+                    .foregroundColor(.white)
+                    Spacer()
+                    Text(monthTitle)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Spacer()
+                    Button(">") {
+                        currentMonth = calendar.date(byAdding: .month, value: 1, to: currentMonth)!
+                    }
+                    .foregroundColor(.white)
                 }
+                .padding()
 
-                // Dates of the month
-                ForEach(visibleDates.indices, id: \.self) { index in
-                    if let date = visibleDates[index] {
-                        Text("\(calendar.component(.day, from: date))")
-                            .frame(maxWidth: .infinity, minHeight: 40)
-                            .padding(8)
-                            .background(isSameDay(selectedDate, date) ? Color.blue.opacity(0.7) : Color.gray.opacity(0.2))
-                            .cornerRadius(5)
-                            .onTapGesture {
-                                selectedDate = calendar.startOfDay(for: date)
-                                selectedTime = Date()
-                                showingEventEditor = true
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 10) {
+                    ForEach(calendar.shortWeekdaySymbols, id: \.self) { day in
+                        Text(day)
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                    }
+
+                    ForEach(visibleDates.indices, id: \.self) { index in
+                        if let date = visibleDates[index] {
+                            Text("\(calendar.component(.day, from: date))")
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, minHeight: 40)
+                                .padding(8)
+                                .background(isSameDay(selectedDate, date) ? Color.blue.opacity(0.7) : Color.gray.opacity(0.2))
+                                .cornerRadius(5)
+                                .onTapGesture {
+                                    selectedDate = calendar.startOfDay(for: date)
+                                    selectedTime = Date()
+                                    showingEventEditor = true
+                                }
+                        } else {
+                            Text("")
+                                .frame(maxWidth: .infinity, minHeight: 40)
+                        }
+                    }
+                }
+                .padding()
+
+                List {
+                    Section(header: Text("Scheduled Events").foregroundColor(.white)) {
+                        ForEach(scheduledEvents) { event in
+                            VStack(alignment: .leading) {
+                                Text(event.title)
+                                    .font(.headline)
+                                    .foregroundColor(.black)
+                                Text(event.date, style: .date)
+                                    .font(.subheadline)
+                                    .foregroundColor(.black)
+                                Text(event.date, style: .time)
+                                    .font(.subheadline)
+                                    .foregroundColor(.black)
                             }
-                    } else {
-                        // Blank cell for padding
-                        Text("")
-                            .frame(maxWidth: .infinity, minHeight: 40)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                editingEvent = event
+                                editingTitle = event.title
+                                editingTime = event.date
+                                showingEditSheet = true
+                            }
+                        }
+                        .onDelete(perform: deleteEvent)
                     }
                 }
+                .listStyle(.insetGrouped)
+                .scrollContentBackground(.hidden)
+                .background(Color.black)
             }
-            .padding()
-
-            // Scheduled events
-            List {
-                Section(header: Text("Scheduled Events")) {
-                    ForEach(scheduledEvents) { event in
-                        VStack(alignment: .leading) {
-                            Text(event.title)
-                                .font(.headline)
-                            Text(event.date, style: .date)
-                                .font(.subheadline)
-                            Text(event.date, style: .time)
-                                .font(.subheadline)
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            editingEvent = event
-                            editingTitle = event.title
-                            editingTime = event.date
-                            showingEditSheet = true
-                        }
-                    }
-                    .onDelete(perform: deleteEvent)
-                }
-            }
-            .listStyle(.insetGrouped)
+            .background(Color.black)
+            .navigationTitle("Schedule")
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbarBackground(Color.black, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
         .sheet(isPresented: $showingEventEditor) {
-            VStack(spacing: 20) {
-                Text("New Event")
-                    .font(.headline)
+            ZStack {
+                Color.black.edgesIgnoringSafeArea(.all)
 
-                TextField("Event Title", text: $newEventTitle)
+                VStack(spacing: 20) {
+                    Text("New Event")
+                        .font(.headline)
+                        .foregroundColor(.white)
+
+                    TextField("Event Title", text: $newEventTitle)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+
+                    DatePicker("Select Time", selection: $selectedTime, displayedComponents: .hourAndMinute)
+                        .datePickerStyle(.wheel)
+                        .labelsHidden()
+                        .frame(height: 100)
+
+                    Button("Save in App") {
+                        if var date = selectedDate {
+                            date = combineDateAndTime(date: date, time: selectedTime)
+                            let newEvent = Event(date: date, title: newEventTitle)
+                            scheduledEvents.append(newEvent)
+                            NotificationCenterStorage.shared.addEvent(newEvent)
+                        }
+                        showingEventEditor = false
+                    }
+                    .foregroundColor(.blue)
+                    .padding()
+
+                    Button("Add to Apple Calendar") {
+                        if var date = selectedDate {
+                            date = combineDateAndTime(date: date, time: selectedTime)
+                            requestCalendarAccess { granted in
+                                if granted {
+                                    addEvent(title: newEventTitle, date: date)
+                                    showSuccessAlert = true
+                                } else {
+                                    showSettingsAlert = true
+                                }
+                                showingEventEditor = false
+                            }
+                        }
+                    }
+                    .foregroundColor(.blue)
+                    .padding()
+
+                    Button("Cancel") {
+                        showingEventEditor = false
+                    }
+                    .foregroundColor(.blue)
+                    .padding()
+                }
+                .padding()
+            }
+            .preferredColorScheme(.dark) 
+        }
+
+        .sheet(isPresented: $showingEditSheet) {
+            VStack(spacing: 20) {
+                Text("Edit Event")
+                    .font(.headline)
+                    .foregroundColor(.white)
+
+                TextField("Edit Title", text: $editingTitle)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
 
@@ -152,54 +213,7 @@ struct Schedule: View {
                     .datePickerStyle(.wheel)
                     .labelsHidden()
                     .frame(height: 100)
-
-                Button("Save in App") {
-                    if var date = selectedDate {
-                        date = combineDateAndTime(date: date, time: selectedTime)
-                        let newEvent = Event(date: date, title: newEventTitle)
-                        scheduledEvents.append(newEvent)
-                        NotificationCenterStorage.shared.addEvent(newEvent)
-                    }
-                    showingEventEditor = false
-                }
-                .padding()
-
-                Button("Add to Apple Calendar") {
-                    if var date = selectedDate {
-                        date = combineDateAndTime(date: date, time: selectedTime)
-                        requestCalendarAccess { granted in
-                            if granted {
-                                addEvent(title: newEventTitle, date: date)
-                                showSuccessAlert = true
-                            } else {
-                                showSettingsAlert = true
-                            }
-                            showingEventEditor = false
-                        }
-                    }
-                }
-                .padding()
-
-                Button("Cancel") {
-                    showingEventEditor = false
-                }
-                .padding()
-            }
-            .padding()
-        }
-        .sheet(isPresented: $showingEditSheet) {
-            VStack(spacing: 20) {
-                Text("Edit Event")
-                    .font(.headline)
-
-                TextField("Edit Title", text: $editingTitle)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-
-                DatePicker("Edit Time", selection: $editingTime, displayedComponents: .hourAndMinute)
-                    .datePickerStyle(.wheel)
-                    .labelsHidden()
-                    .frame(height: 100)
+                    .colorScheme(.dark)
 
                 Button("Save Changes") {
                     if let editingEvent = editingEvent {
@@ -217,6 +231,7 @@ struct Schedule: View {
                 .padding()
             }
             .padding()
+            .background(Color.black)
         }
         .alert("Event Added!", isPresented: $showSuccessAlert) {
             Button("OK", role: .cancel) { }
@@ -232,8 +247,6 @@ struct Schedule: View {
             Text("Please allow Calendar access in Settings to add events.")
         }
     }
-
-    // Helpers
 
     func isSameDay(_ date1: Date?, _ date2: Date?) -> Bool {
         guard let date1 = date1, let date2 = date2 else { return false }

@@ -10,57 +10,68 @@ import SwiftUI
 struct NotificationCenterView: View {
     @StateObject private var storage = NotificationCenterStorage.shared
 
-    var body: some View {
-        NavigationStack {
-            VStack {
-                if storage.upcomingEvents.isEmpty {
-                    Text("No upcoming reminders.")
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    List {
-                        ForEach(storage.upcomingEvents) { event in
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(event.title)
-                                    .font(.headline)
-                                Text(event.date, style: .date)
-                                    .font(.subheadline)
-                                Text(event.date, style: .time)
-                                    .font(.subheadline)
+        var body: some View {
+            NavigationStack {
+                ZStack {
+                    Color.black.ignoresSafeArea()
+
+                    VStack {
+                        if storage.upcomingEvents.isEmpty {
+                            Text("No upcoming reminders.")
+                                .foregroundColor(.white)
+                                .padding()
+                        } else {
+                            List {
+                                ForEach(storage.upcomingEvents) { event in
+                                    VStack(alignment: .leading, spacing: 5) {
+                                        Text(event.title)
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                        Text(event.date, style: .date)
+                                            .font(.subheadline)
+                                            .foregroundColor(.white)
+                                        Text(event.date, style: .time)
+                                            .font(.subheadline)
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding(.vertical, 5)
+                                }
+                                .onDelete(perform: deleteEvent)
                             }
-                            .padding(.vertical, 5)
-                        }
-                        .onDelete(perform: deleteEvent)
-                    }
-                    .listStyle(.insetGrouped)
-                }
-            }
-            .navigationTitle("Notifications")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    if !storage.upcomingEvents.isEmpty {
-                        Button("Clear All") {
-                            clearAllEvents()
+                            .listStyle(.insetGrouped)
+                            .scrollContentBackground(.hidden)
+                            .background(Color.black)
                         }
                     }
                 }
-            }
-            .onAppear {
-                storage.loadUpcomingEvents()
+                .navigationTitle("Notifications")
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                .toolbarBackground(Color.black, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        if !storage.upcomingEvents.isEmpty {
+                            Button("Clear All") {
+                                clearAllEvents()
+                            }
+                            .foregroundColor(.white)
+                        }
+                    }
+                }
+                .onAppear {
+                    storage.loadUpcomingEvents()
+                }
             }
         }
-    }
 
-    func deleteEvent(at offsets: IndexSet) {
-        storage.deleteEvents(at: offsets)
-    }
+        func deleteEvent(at offsets: IndexSet) {
+            storage.deleteEvents(at: offsets)
+        }
 
-    func clearAllEvents() {
-        storage.clearAll()
+        func clearAllEvents() {
+            storage.clearAll()
+        }
     }
-}
-
-// MARK: - Shared Storage Singleton
 
 class NotificationCenterStorage: ObservableObject {
     static let shared = NotificationCenterStorage()
@@ -74,9 +85,7 @@ class NotificationCenterStorage: ObservableObject {
 
     private init() { }
 
-    func loadUpcomingEvents() {
-        // Already loaded in-memory for now
-    }
+    func loadUpcomingEvents() {}
 
     func addEvent(_ event: Event) {
         allEvents.append(event)
