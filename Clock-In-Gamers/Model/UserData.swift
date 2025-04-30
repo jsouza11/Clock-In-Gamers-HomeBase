@@ -21,6 +21,8 @@ struct UserData: Identifiable, Codable {
     
     var friends: [String] = []
     var friendRequests: FriendRequests = FriendRequests()
+    var profileImageUrl: String? 
+
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()
