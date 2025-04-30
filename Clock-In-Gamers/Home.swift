@@ -82,12 +82,11 @@ struct Home: View {
                     ScrollView {
                         VStack(spacing: 20) {
                             ForEach(friendsData) { friend in
-                                UserRowView(user: friend)
-                                    .padding(.horizontal)
-                                    .onTapGesture {
-                                        friendToRemove = friend
-                                        showRemoveAlert = true
-                                    }
+                                NavigationLink(destination: FriendProfView(friend: friend)) {
+                                    UserRowView(user: friend)
+                                        .padding(.horizontal)
+                                }
+
                             }
 
                         }
