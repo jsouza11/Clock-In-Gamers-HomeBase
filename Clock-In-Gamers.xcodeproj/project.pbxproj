@@ -12,6 +12,7 @@
 		D363E85B2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D363E85A2DBB13FA006CBFC1 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		D363E85D2DBB13FA006CBFC1 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D363E85C2DBB13FA006CBFC1 /* FirebaseAppCheck */; };
 		D363E85F2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D363E85E2DBB13FA006CBFC1 /* FirebaseAppDistribution-Beta */; };
+		D3C647412DC1E34500992F71 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D3C647402DC1E33F00992F71 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		D0E753AB2D5C68EF00E9605B /* Clock-In-Gamers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clock-In-Gamers.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E753BC2D5C68F100E9605B /* Clock-In-GamersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Clock-In-GamersTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E753C62D5C68F100E9605B /* Clock-In-GamersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Clock-In-GamersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C647402DC1E33F00992F71 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -88,6 +90,7 @@
 		D0E753A22D5C68EF00E9605B = {
 			isa = PBXGroup;
 			children = (
+				D3C647402DC1E33F00992F71 /* .gitignore */,
 				D0E753AD2D5C68EF00E9605B /* Clock-In-Gamers */,
 				D0E753BF2D5C68F100E9605B /* Clock-In-GamersTests */,
 				D0E753C92D5C68F100E9605B /* Clock-In-GamersUITests */,
@@ -233,6 +236,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C647412DC1E34500992F71 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

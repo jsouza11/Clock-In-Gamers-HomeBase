@@ -1,0 +1,53 @@
+//
+//  .gitignore
+//  Clock-In-Gamers
+//
+//  Created by Jake Souza on 4/29/25.
+//
+
+# Xcode
+*.xcuserstate
+*.xcworkspace
+*.xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# SwiftPM
+.build/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/
+
+# Firebase
+GoogleService-Info.plist
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# Archives
+*.xcarchive
+
+# User settings
+*.xcsettings
+*.moved-aside
+DerivedData/
+.idea/
+*.hmap
+
+# Simulator stuff
+*.simruntime
+*.simdevice
+
+# Logs
+*.log
+
+# Other
+.DS_Store
+.env
+*.swp
