@@ -39,12 +39,24 @@ class AuthViewModel: ObservableObject {
         }
     }
 
-    func createUser(withEmail email: String, password: String, fullname: String, username: String) async throws {
+    func createUser(withEmail email: String, password: String, fullName: String, username: String) async throws {
         do {
+            // Create user with FirebaseAuth
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
 
-            let user = UserData(id: result.user.uid, fullName: fullname, email: email, username: username, isClockedIn: false)
+            // Initialize full user model with defaults
+            let user = UserData(
+                id: result.user.uid,
+                fullName: fullName,
+                email: email,
+                username: username.lowercased(),
+                isClockedIn: false,
+                friends: [],
+                friendRequests: FriendRequests()
+            )
+
+            // Encode to dictionary and write to Firestore
             let encodedUser = try Firestore.Encoder().encode(user)
 
             try await Firestore.firestore()
@@ -52,9 +64,11 @@ class AuthViewModel: ObservableObject {
                 .document(result.user.uid)
                 .setData(encodedUser)
 
+            // Fetch the user to sync state
             await fetchUser()
         } catch {
             print("DEBUG: Failed to create user: \(error.localizedDescription)")
+            throw error
         }
     }
 
@@ -72,18 +86,6 @@ class AuthViewModel: ObservableObject {
         // Placeholder for account deletion logic
     }
 
-//    func fetchUser() async {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//
-//        guard let snapshot = try? await Firestore.firestore()
-//            .collection("users")
-//            .document(uid)
-//            .getDocument() else { return }
-//
-//        self.currentUser = try? snapshot.data(as: UserData.self)
-//
-//        print("DEBUG: Current user is \(String(describing: self.currentUser))")
-//    }
     
     func fetchUser() async {
         guard let uid = Auth.auth().currentUser?.uid else {
@@ -150,6 +152,24 @@ class AuthViewModel: ObservableObject {
         } catch {
             print("❌ Error patching user document: \(error.localizedDescription)")
         }
+    }
+    
+    func sendFriendRequest(toUsername: String) async {
+        guard let uid = userSession?.uid else { return }
+        let manager = FriendManager()
+        try? await manager.sendFriendRequest(toUsername: toUsername, fromUID: uid)
+    }
+
+    func acceptFriendRequest(fromUID: String) async {
+        guard let uid = userSession?.uid else { return }
+        let manager = FriendManager()
+        try? await manager.acceptFriendRequest(fromUID: fromUID, toUID: uid)
+    }
+
+    func declineFriendRequest(fromUID: String) async {
+        guard let uid = userSession?.uid else { return }
+        let manager = FriendManager()
+        try? await manager.declineFriendRequest(fromUID: fromUID, toUID: uid)
     }
 }
 

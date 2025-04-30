@@ -7,12 +7,20 @@
 
 import Foundation
 
+struct FriendRequests: Codable {
+    var incoming: [String] = []
+    var outgoing: [String] = []
+}
+
 struct UserData: Identifiable, Codable {
     let id: String
     let fullName: String
     let email: String
     let username: String
     var isClockedIn: Bool
+    
+    var friends: [String] = []
+    var friendRequests: FriendRequests = FriendRequests()
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()

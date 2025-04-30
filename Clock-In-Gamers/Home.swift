@@ -48,13 +48,19 @@ struct Home: View {
                         }
                         
                         HStack {
-                            VStack(alignment: .leading) {
-                                Text("Friends List")
-                                    .foregroundColor(.white)
-                                    .font(.title)
-                                    .padding(.horizontal)
-                            }
+                            Text("Friends List")
+                                .foregroundColor(.white)
+                                .font(.title)
+                                .padding(.leading)
+
                             Spacer()
+
+                            NavigationLink(destination: AddFriendView()) {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.title2)
+                                    .foregroundColor(.blue)
+                                    .padding(.trailing)
+                            }
                         }
                         .padding(.top)
                         
@@ -97,8 +103,9 @@ struct Home: View {
                                     Image(systemName: "bell")
                                         .foregroundColor(.white)
                                         .font(.title2)
-                                    
-                                    if !NotificationCenterStorage.shared.upcomingEvents.isEmpty {
+
+                                    if let incoming = viewModel.currentUser?.friendRequests.incoming,
+                                       !incoming.isEmpty {
                                         Circle()
                                             .fill(Color.red)
                                             .frame(width: 10, height: 10)
@@ -110,6 +117,7 @@ struct Home: View {
                     }
                     .sheet(isPresented: $showNotifications) {
                         NotificationCenterView()
+                            .environmentObject(viewModel)
                     }
                 }
                 .modifier(MainBackground())
