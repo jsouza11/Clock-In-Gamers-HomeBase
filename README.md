@@ -34,7 +34,7 @@
 - Points-based reward store
 - Voice chat integration
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Frontend:** SwiftUI  
 - **Backend:** Firebase (Authentication, Firestore Database)
